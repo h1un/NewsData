@@ -10,13 +10,13 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password:
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+  #  jpa:
+  #    database-platform: org.hibernate.dialect.H2Dialect
   h2:
     console:
       enabled: true
-#  jpa:
-#    hibernate:
-#      ddl-auto: create
-#      naming:
-#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  jpa:
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl

@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/")
-    public ResponseEntity<?> findAll(){
+    public ResponseEntity<?> findAll() {
+        return new ResponseEntity<String>("ok", HttpStatus.OK);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<?> user() {
         return new ResponseEntity<String>("ok", HttpStatus.OK);
     }
 
