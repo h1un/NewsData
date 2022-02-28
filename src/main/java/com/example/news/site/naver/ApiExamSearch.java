@@ -24,9 +24,8 @@ public class ApiExamSearch {
             throw new RuntimeException("검색어 인코딩 실패", e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/News?query=" + text;    // json 결과
+        String apiURL = "https://openapi.naver.com/v1/search/News?display=100&query=" + text;    // json 결과
         //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
-
 
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
@@ -37,7 +36,6 @@ public class ApiExamSearch {
         return responseBody;
     }
 
-
     private static String get(String apiUrl, Map<String, String> requestHeaders) {
         HttpURLConnection con = connect(apiUrl);
         try {
@@ -45,7 +43,6 @@ public class ApiExamSearch {
             for (Map.Entry<String, String> header : requestHeaders.entrySet()) {
                 con.setRequestProperty(header.getKey(), header.getValue());
             }
-
 
             int responseCode = con.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
@@ -60,7 +57,6 @@ public class ApiExamSearch {
         }
     }
 
-
     private static HttpURLConnection connect(String apiUrl) {
         try {
             URL url = new URL(apiUrl);
@@ -72,10 +68,8 @@ public class ApiExamSearch {
         }
     }
 
-
     private static String readBody(InputStream body) {
         InputStreamReader streamReader = new InputStreamReader(body);
-
 
         try (BufferedReader lineReader = new BufferedReader(streamReader)) {
             StringBuilder responseBody = new StringBuilder();
@@ -85,7 +79,6 @@ public class ApiExamSearch {
             while ((line = lineReader.readLine()) != null) {
                 responseBody.append(line);
             }
-
 
             return responseBody.toString();
         } catch (IOException e) {
