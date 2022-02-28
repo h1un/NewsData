@@ -1,6 +1,7 @@
 package com.example.news.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {

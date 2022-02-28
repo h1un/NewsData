@@ -1,5 +1,7 @@
 package com.example.news.site.naver;
 
+import org.springframework.stereotype.Service;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -8,7 +10,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Service
 public class ApiExamSearch {
 
     public String search(String keyword) {
