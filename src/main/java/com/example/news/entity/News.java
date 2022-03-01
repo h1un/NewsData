@@ -14,8 +14,8 @@ public class News {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_idx")
-    private Long userIdx;
+    @Column(name = "news_idx")
+    private Long newsIdx;
 
     private String site;
     @ManyToOne(fetch = FetchType.EAGER)//연관관계맺음 Many = Many, User =One
