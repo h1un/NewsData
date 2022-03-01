@@ -4,6 +4,7 @@ import com.example.news.entity.Keyword;
 import com.example.news.entity.News;
 import com.example.news.repository.KeywordRepository;
 import com.example.news.repository.NewsRepository;
+import com.example.news.service.NewsService;
 import com.example.news.site.naver.ApiExamSearch;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -19,6 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class NewsController {
+
+    public final NewsService newsService;
+
 
     public final KeywordRepository keywordRepository;
     public final NewsRepository newsRepository;
@@ -62,17 +66,17 @@ public class NewsController {
     }
     @ResponseBody
     @PostMapping("/keyword")
-    public ResponseEntity<?> inputKeyword(@RequestParam String keyword){
+    public void inputKeyword(@RequestParam String keyword){
 
-        keywordRepository.save(Keyword.builder().keyword(keyword).build());
+        newsService.키워드등록(keyword);
 
-        return new ResponseEntity<String>("ok", HttpStatus.OK);
+
+//        return new ResponseEntity<String>("ok", HttpStatus.OK);
     }
 
     // 키워드 등록 성공이면 다시 불러오게 는 필요 없나 ?
     @GetMapping("/keyword")
     public List<Keyword> findKeyword() {
-        keywordRepository.findAll().stream().forEach(System.out::println);
         return keywordRepository.findAll();
     }
 
