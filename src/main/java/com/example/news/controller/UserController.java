@@ -26,22 +26,19 @@ public class UserController {
     }
 
     @GetMapping("/signup")
-    public ModelAndView singInFrom() {
+    public ModelAndView singUpFrom() {
 
         modelAndView.setViewName("signup");
         return modelAndView;
     }
 
-
+    @ResponseBody
     @PostMapping("/signup")
-    public @ResponseBody
-    ModelAndView singIn(User user) {
-
-
+    public ModelAndView singUp(User user) {
         String encodePassword = passwordEncoder.encode(user.getUserPassword());
         user.setUserPassword(encodePassword);
         userRepository.save(user);
-        modelAndView.setViewName("index");
+        modelAndView.setViewName("redirect:login");
         return modelAndView;
     }
 
