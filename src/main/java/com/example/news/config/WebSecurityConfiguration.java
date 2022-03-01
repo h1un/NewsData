@@ -21,7 +21,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-//                .antMatchers("/h2-console/**","/").permitAll()
+                .antMatchers("/h2-console/**","/").permitAll()
                 .antMatchers("/user/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
@@ -30,6 +30,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .loginProcessingUrl("/loginProc")
+                .defaultSuccessUrl("/")
                 .and()
                 .logout()
                 .permitAll()

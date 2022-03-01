@@ -45,12 +45,5 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping("/login")
-    public ModelAndView login() {
-
-        modelAndView.setViewName("login");
-        return modelAndView;
-    }
-
 }
 
