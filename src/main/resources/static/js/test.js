@@ -90,24 +90,6 @@ function getNewsPage(page) {
 }
 
 
-function test() {
-    $.ajax({
-        url: '/keyword',
-        type: 'get',
-        dataType: 'json',
-        success: function (json) {
-
-            console.log(json);
-
-        },
-        error: function (json) {
-
-            alert("실패");
-        }
-    });
-}
-
-
 function inputKeyword() {
     $.ajax({
         url: '/keyword',
