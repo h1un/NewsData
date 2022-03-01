@@ -84,11 +84,8 @@ public class NewsController {
 
         newsService.키워드등록(keyword);
 
-
-//        return new ResponseEntity<String>("ok", HttpStatus.OK);
     }
 
-    // 키워드 등록 성공이면 다시 불러오게 는 필요 없나 ?
     @GetMapping("/keyword")
     public List<Keyword> findKeyword() {
         return keywordRepository.findAll();

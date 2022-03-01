@@ -34,9 +34,6 @@ public class NewsService {
     @SneakyThrows
     public void 키워드수집(Keyword keyword) {
         //네이버
-
-        //        keywordRepository.findAll().stream().forEach(keyword -> {
-
         String json = apiExamSearch.search(keyword.getKeyword());
         JsonNode jsonNode = objectMapper.readTree(json);
 
@@ -55,7 +52,12 @@ public class NewsService {
             newsRepository.save(news);
         }
 
+    }
 
-//        });
+    public void 스케줄러키워드수집() {
+
+        keywordRepository.findAll().stream().forEach(keyword -> {
+            키워드수집(keyword);
+        });
     }
 }

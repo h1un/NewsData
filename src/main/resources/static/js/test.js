@@ -1,8 +1,6 @@
 $(document).ready(function () {
 
-
     let page = 0;
-
 
     getNewsPage(page);
 
@@ -15,10 +13,8 @@ $(document).ready(function () {
     });
 });
 
-
 function getNewsPage(page) {
 
-    console.log("??")
     $.ajax({
         url: '/newsList?page=' + page + '&size=20',
         type: 'get',
@@ -43,14 +39,14 @@ function getNewsPage(page) {
                 $('#page').html("");
 
                 if (pageQuotient == 0) {
-                    $('#page').append('<li class="page-item"><a class="page-link" onclick="getNewsPage(0)">first</a></li>');
-
-                    $('#page').append('<li class="page-item disabled"><a class="page-link"">Previous</a></li>');
+                    // $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(0)">first</a>');
+                    //
+                    // $('#page').append('<a class="btn btn-outline-primary"">Previous</a>');
                 } else {
-                    $('#page').append('<li class="page-item"><a class="page-link" onclick="getNewsPage(0)">first</a></li>');
+                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(0)">first</a>');
 
                     pagePrevious = (pageQuotient * 10) - 10;
-                    $('#page').append('<li class="page-item"><a class="page-link" onclick="getNewsPage(' + pagePrevious + ')">Previous</a></li>');
+                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pagePrevious + ')">Previous</a>');
 
                 }
 
@@ -58,31 +54,31 @@ function getNewsPage(page) {
 
                     pageNum = (pageQuotient * 10) + i;
                     pageNumNext = pageNum + 1;
-                    $('#page').append('<li class="page-item"><a class="page-link" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a></li>');
+                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a>');
 
                 }
                 //17
-                $('#page').append('<li class="page-item"><a class="page-link"style = "color : red; onclick="getNewsPage(' + page + ')">' + pageNext + '</a></li>');
-                
+                $('#page').append('<a class="btn btn-outline-primary"style = "color : red; onclick="getNewsPage(' + page + ')">' + pageNext + '</a> ');
+
                 for (i = 1; i < 10 - pageRemainder; i++) {
 
                     pageNum = page + i;
                     pageNumNext = pageNum + 1;
                     //18 >= 17
                     if (pageNum > pageLast) break;
-                    $('#page').append('<li class="page-item"><a class="page-link" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a></li>');
+                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a> ');
 
 
                 }
                 if (pageLastNum == pageQuotient) {
-                    //$('#page').append('<li class="page-item disabled"><a class="page-link"">Next</a></li>');
-                    $('#page').append('<li class="page-item"><a class="page-link" onclick="getNewsPage(' + pageLast + ')">last</a></li>');
+                    //$('#page').append('<li class="page-item disabled"><a class="page-link"">Next</a> ');
+                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageLast + ')">last</a></>');
 
                 } else {
                     pageNext = (pageQuotient * 10) + 10;
 
-                    $('#page').append('<li class="page-item"><a class="page-link" onclick="getNewsPage(' + pageNext + ')">Next</a></li>');
-                    $('#page').append('<li class="page-item"><a class="page-link" onclick="getNewsPage(' + pageLast + ')">last</a></li>');
+                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageNext + ')">Next</a> ');
+                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageLast + ')">last</a> ');
                 }
             });
 
