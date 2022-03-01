@@ -58,7 +58,7 @@ function getNewsPage(page) {
 
                 }
                 //17
-                $('#page').append('<a class="btn btn-outline-primary"style = "color : red; onclick="getNewsPage(' + page + ')">' + pageNext + '</a> ');
+                $('#page').append('<a class="btn btn-outline-primary" style = "color : red;" onclick=" getNewsPage(' + page + ')">' + pageNext + '</a> ');
 
                 for (i = 1; i < 10 - pageRemainder; i++) {
 
