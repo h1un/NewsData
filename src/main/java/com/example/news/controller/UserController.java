@@ -2,7 +2,6 @@ package com.example.news.controller;
 
 import com.example.news.entity.User;
 import com.example.news.repository.UserRepository;
-import com.example.news.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;

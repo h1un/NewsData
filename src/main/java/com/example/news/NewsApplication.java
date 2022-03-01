@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @RequiredArgsConstructor
@@ -21,7 +20,7 @@ public class NewsApplication {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    void 키워드(){
+    void 키워드() {
         newsService.키워드등록("선거");
         newsService.키워드등록("코로나");
     }
