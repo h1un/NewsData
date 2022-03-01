@@ -15,7 +15,6 @@ public class ApiExamSearch {
     String clientId = "Z324cuzktzkbDrdFTIod"; //애플리케이션 클라이언트 아이디값"
     String clientSecret = "YeAY5_kmPL"; //애플리케이션 클라이언트 시크릿값"
 
-
     public String search(String keyword) {
 
         String text = null;
@@ -37,7 +36,7 @@ public class ApiExamSearch {
         return responseBody;
     }
 
-    public String search(String keyword,int start) {
+    public String search(String keyword, int start) {
 
         String text = null;
         try {
@@ -46,16 +45,16 @@ public class ApiExamSearch {
             throw new RuntimeException("검색어 인코딩 실패", e);
         }
 
-        String apiURL = "https://openapi.naver.com/v1/search/News?display=100&sort=date&query=" + text + "&start="+start;    // json 결과
+        String apiURL = "https://openapi.naver.com/v1/search/News?display=100&sort=date&query=" + text + "&start=" + start;    // json 결과
         //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("X-Naver-Client-Id", clientId);
         requestHeaders.put("X-Naver-Client-Secret", clientSecret);
         String responseBody = get(apiURL, requestHeaders);
 
-
         return responseBody;
     }
+
     private static String get(String apiUrl, Map<String, String> requestHeaders) {
         HttpURLConnection con = connect(apiUrl);
         try {

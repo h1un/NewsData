@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @EnableScheduling
 @RequiredArgsConstructor
 @Component
-public class JobSetting {
+public class Scheduler {
 
     public final NewsService newsService;
 

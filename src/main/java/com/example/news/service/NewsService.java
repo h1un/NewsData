@@ -9,12 +9,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAdjuster;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -25,6 +26,14 @@ public class NewsService {
     public final ApiExamSearch apiExamSearch;
 
     ObjectMapper objectMapper = new ObjectMapper();
+
+    public List<Keyword> findKeywords() {
+        return keywordRepository.findAll();
+    }
+
+    public Page<News> findNewsPaging(Pageable page) {
+        return newsRepository.findAll(page);
+    }
 
     public void 키워드등록(String keyword) {
 
@@ -39,7 +48,6 @@ public class NewsService {
         String json = apiExamSearch.search(keyword.getKeyword());
         JsonNode jsonNode = objectMapper.readTree(json);
 
-
         for (JsonNode items : jsonNode.path("items")) {
 
             LocalDateTime dateTime = LocalDateTime.parse(items.path("pubDate").asText(), DateTimeFormatter.RFC_1123_DATE_TIME);
@@ -53,13 +61,11 @@ public class NewsService {
                     .build();
             newsRepository.save(news);
         }
-
     }
 
     @SneakyThrows
     public void 키워드수집(Keyword keyword) {
         //네이버
-
         LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
 
         int start = 1;
@@ -92,9 +98,7 @@ public class NewsService {
         }
     }
 
-
     public void 스케줄러키워드수집() {
-
         keywordRepository.findAll().stream().forEach(keyword -> {
             키워드수집(keyword);
         });
