@@ -24,7 +24,7 @@ function getNewsPage(page) {
             $.each(json.content, function (index, news) {
 
                 let html = '<article class="blog-post">'
-                    + '<h4 class="blog-post-title" > <a href="'+news.link+'" style="color:grey">' + news.title + '</a></h4>'
+                    + '<h4 class="blog-post-title" > <a href="' + news.link + '" style="color:grey">' + news.title + '</a></h4>'
                     + '<p class="blog-post-meta" >' + news.pubDate + '</p>'
                     + '<p>' + news.description + '</p>'
                     + '<hr>'
