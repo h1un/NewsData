@@ -27,7 +27,7 @@ public class NewsController {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping("/news")
-    public ModelAndView nesw() {
+    public ModelAndView news() {
 
         List<Keyword> keywords = keywordRepository.findAll();
         modelAndView.addObject("keywords", keywords);
@@ -62,12 +62,18 @@ public class NewsController {
     }
     @ResponseBody
     @PostMapping("/keyword")
-    public ResponseEntity<?> keyword(@RequestParam String keyword){
+    public ResponseEntity<?> inputKeyword(@RequestParam String keyword){
 
         keywordRepository.save(Keyword.builder().keyword(keyword).build());
 
         return new ResponseEntity<String>("ok", HttpStatus.OK);
     }
 
+    // 키워드 등록 성공이면 다시 불러오게 는 필요 없나 ?
+    @GetMapping("/keyword")
+    public List<Keyword> findKeyword() {
+        keywordRepository.findAll().stream().forEach(System.out::println);
+        return keywordRepository.findAll();
+    }
 
 }
