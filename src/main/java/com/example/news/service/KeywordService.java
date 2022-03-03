@@ -45,13 +45,17 @@ public class KeywordService {
         );
     }
 
-    public KeywordDTO findKeyword(String Keyword) {
+    public KeywordDTO findKeywordByKeyword(String Keyword) {
         return KeywordMapper.INSTANCE.keywordEntityToDTO(keywordRepository.findByKeyword(Keyword));
     }
 
-//    public void deleteKeyword(Long keywordIdx) {
-//        keywordRepository.deleteById(keywordIdx);
-//    }
+    public boolean checkKeyword(String Keyword) {
+        if(keywordRepository.findByKeyword(Keyword)==null){
+            return false;
+        }
+        return true;
+
+    }
 
     @SneakyThrows
     public void keywordCollectionFirst(KeywordDTO keyword) {

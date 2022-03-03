@@ -35,6 +35,14 @@ public class NewsController {
     }
 
     @ResponseBody
+    @GetMapping("/keyword/{keyword}")
+    public boolean findKeyword(@PathVariable String keyword) {
+
+        return keywordService.checkKeyword(keyword);
+
+    }
+
+    @ResponseBody
     @PostMapping("/keyword")
     public void inputKeyword(@RequestParam String keyword) {
 

@@ -91,20 +91,42 @@ function getNewsPage(page) {
 
 
 function inputKeyword() {
+
     $.ajax({
-        url: '/keyword',
-        type: 'post',
-        data: {keyword: $("#keyword").val()},
+        url: '/keyword/' + $("#keyword").val(),
+        type: 'get',
+        success: function (keywordCheck) {
 
-        success: function (json) {
+            console.log(keywordCheck)
+            if (!keywordCheck) {
 
-            alert("키워드 등록!");
+                $.ajax({
+                    url: '/keyword',
+                    type: 'post',
+                    data: {keyword: $("#keyword").val()},
 
-            getNewsPage(page);
+                    success: function (json) {
+
+                        alert("키워드 등록!");
+
+                        getNewsPage(page);
+                    },
+                    error: function (request, status, error) {
+                        console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                    }
+
+                });
+            }else{
+                alert("이미 등록된 키워드 입니다.");
+
+            }
+
         },
         error: function (request, status, error) {
             console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
         }
 
     });
+
+
 }
