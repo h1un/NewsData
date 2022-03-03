@@ -23,8 +23,8 @@ public class UserService {
         userRepository.save(userEntity);
     }
 
-    public boolean checkKeyword(String userId) {
-        if(userRepository.findByUserId(userId)==null){
+    public boolean checkUserId(String userId) {
+        if(userRepository.findByUserId(userId).isEmpty()){
             return false;
         }
         return true;

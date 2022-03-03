@@ -38,8 +38,7 @@ public class UserController {
     @GetMapping("/signup/{userId}")
     public boolean findUserId(@PathVariable String userId) {
 
-        System.out.println(userId);
-        return userService.checkKeyword(userId);
+        return userService.checkUserId(userId);
 
     }
 
