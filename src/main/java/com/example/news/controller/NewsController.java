@@ -61,9 +61,17 @@ public class NewsController {
 
     @ResponseBody
     @PostMapping("/keyword")
-    public void inputKeyword(@RequestParam String keyword) {
+    public KeywordDTO inputKeyword(@RequestParam String keyword) {
 
-        keywordService.insertKeywordFirst(keyword);
+        return keywordService.insertKeywordFirst(keyword);
+
+    }
+
+    @ResponseBody
+    @DeleteMapping("/keyword/{keywordIdx}")
+    public void deleteKeyword(@PathVariable Long keywordIdx) {
+
+        keywordService.deleteKeyword(keywordIdx);
 
     }
 

@@ -32,10 +32,11 @@ public class KeywordService {
         return KeywordMapper.INSTANCE.keywordDTOListToEntityList(keywordRepository.findAll());
     }
 
-    public void insertKeywordFirst(String keyword) {
+    public KeywordDTO insertKeywordFirst(String keyword) {
+        KeywordDTO keywordDTO = KeywordMapper.INSTANCE.keywordEntityToDTO(insertKeyword(keyword));
+        keywordCollectionFirst(keywordDTO); // 최초 수집
 
-        keywordCollectionFirst(KeywordMapper.INSTANCE.keywordEntityToDTO(insertKeyword(keyword))); // 최초 수집
-
+        return keywordDTO;
     }
 
     public KeywordEntity insertKeyword(String keyword) {
@@ -117,5 +118,10 @@ public class KeywordService {
         KeywordMapper.INSTANCE.keywordDTOListToEntityList(keywordRepository.findAll()).stream().forEach(keyword -> {
             keywordCollection(keyword);
         });
+    }
+
+    public void deleteKeyword(Long keywordIdx) {
+        keywordRepository.deleteById(keywordIdx);
+
     }
 }

@@ -36,10 +36,10 @@
     <hr>
 
     <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex" id="keywordBar" >
-            <button class="btn btn-outline-secondary" >All</button>
+        <nav class="nav d-flex" id="keywordBar">
+            <button class="btn btn-outline-secondary">All</button>
             <th:block th:each="keyword : ${keywords}">
-                <button th:text="${keyword.keyword}" class="btn btn-outline-secondary" ></button>
+                <button th:text="${keyword.keyword}" class="btn btn-outline-secondary"></button>
             </th:block>
         </nav>
     </div>
@@ -74,16 +74,8 @@
                 </div>
                 <div class="p-4">
 
-                    <ul class="list-group">
-                        <th:block th:each="keyword : ${keywords}">
-                            <li class="list-group-item" th:text="${keyword.keyword}"></li>
+                    <ul class="list-group" id = "keywordSide">
 
-                        </th:block>
-                    </ul>
-                    <ul class="list-group ">
-                        <li class="list-group-item">An item
-                            <button class="btn-outline-secondary rounded-pill">x</button>
-                        </li>
                     </ul>
 
                 </div>

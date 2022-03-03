@@ -22,14 +22,24 @@ function getKeywords() {
 
             $("#keywordBar").html('');
             $("#keywordBar").append(' <button class="btn btn-outline-secondary" onclick="getNewsPage(0)" >All</button>');
-            let html ='';
+            let barHtml = '';
+            $("#keywordSide").html('');
+
+            let sideHtml = '';
+
+
             $.each(keywords, function (index, keyword) {
-                console.log(keyword.keyword)
-                html += '<button class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(0,\''+keyword.keyword+'\')">'+keyword.keyword+'</button>';
+                console.log(keyword)
+                barHtml += '<button class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(0,\'' + keyword.keyword + '\')">' + keyword.keyword + '</button>';
+                sideHtml += '<li class="list-group-item">' + keyword.keyword+
+                    '<button class="btn btn-outline-secondary" onclick="deleteKeyword('+keyword.keywordIdx+')">x</button>' +
+                    '</li>'
 
             })
-            $("#keywordBar").append(html);
-        },error: function (json) {
+            $("#keywordBar").append(barHtml);
+            $("#keywordSide").append(sideHtml);
+
+        }, error: function (json) {
         }
     })
 
@@ -112,7 +122,7 @@ function getNewsPage(page) {
 }
 
 
-function getNewsPageByKeyword(page , keyword) {
+function getNewsPageByKeyword(page, keyword) {
 
     $.ajax({
         url: '/newsList/' + keyword + '?page=' + page + '&size=20',
@@ -208,7 +218,13 @@ function inputKeyword() {
 
                         alert("키워드 등록!");
 
+                        $("#keywordBar").append( '<button class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(0,\'' + json.keyword + '\')">' + json.keyword + '</button>');
+                        $("#keywordSide").append('<li class="list-group-item">' + json.keyword+
+                            '<button class="btn btn-outline-secondary" onclick="deleteKeyword('+json.keywordIdx+')">x</button>' +
+                            '</li>');
+
                         getNewsPage(page);
+
                     },
                     error: function (request, status, error) {
                         console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
@@ -226,6 +242,31 @@ function inputKeyword() {
         }
 
     });
+
+
+}
+
+
+function deleteKeyword(keywordIdx) {
+
+    let deleteCk = confirm("삭제하시겠습니까?")
+
+    if(deleteCk){
+
+    $.ajax({
+        url: '/keyword/' + keywordIdx,
+        type: 'delete',
+        success: function () {
+            alert("삭제되었습니다!")
+            location.reload();
+
+        },
+        error: function (request, status, error) {
+            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+        }
+
+    });
+    }
 
 
 }

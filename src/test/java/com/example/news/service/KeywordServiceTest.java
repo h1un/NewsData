@@ -44,15 +44,15 @@ public class KeywordServiceTest {
         Assert.assertTrue(keywordService.checkKeyword("선거"));
         Assert.assertFalse(keywordService.checkKeyword("자가 키트"));
     }
-//
-//    @DisplayName("키워드 삭제")
-//    @Test
-//    public void deleteKeyword(){
-//        keywordService.deleteKeyword(
-//                keywordService.findKeyword("코로나").getKeywordIdx());
-////        Assert.assertNull(
-////                keywordService.findKeyword("코로나"));
-//
-//    }
+
+    @DisplayName("키워드 삭제")
+    @Test
+    public void deleteKeyword(){
+        keywordService.deleteKeyword(
+                keywordService.findKeywordByKeyword("코로나").getKeywordIdx());
+        Assert.assertNull(
+                keywordService.findKeywordByKeyword("코로나"));
+
+    }
 
 }
