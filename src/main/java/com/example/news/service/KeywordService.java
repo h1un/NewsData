@@ -2,6 +2,7 @@ package com.example.news.service;
 
 import com.example.news.dto.KeywordDTO;
 import com.example.news.dto.NewsDTO;
+import com.example.news.entity.KeywordEntity;
 import com.example.news.mapper.KeywordMapper;
 import com.example.news.mapper.NewsMapper;
 import com.example.news.repository.KeywordRepository;
@@ -31,17 +32,26 @@ public class KeywordService {
         return KeywordMapper.INSTANCE.keywordDTOListToEntityList(keywordRepository.findAll());
     }
 
-    public void insertKeyword(String keyword) {
+    public void insertKeywordFirst(String keyword) {
 
-        KeywordDTO keyword1 = KeywordMapper.INSTANCE.keywordEntityToDTO(
-                keywordRepository.save(
-                        KeywordMapper.INSTANCE.keywordDTOToEntity(KeywordDTO.builder().keyword(keyword).build()
-                        )
-                ));
-
-        keywordCollectionFirst(keyword1); // 최초 수집
+        keywordCollectionFirst(KeywordMapper.INSTANCE.keywordEntityToDTO(insertKeyword(keyword))); // 최초 수집
 
     }
+
+    public KeywordEntity insertKeyword(String keyword) {
+        return keywordRepository.save(
+                KeywordMapper.INSTANCE.keywordDTOToEntity(KeywordDTO.builder().keyword(keyword).build()
+                )
+        );
+    }
+
+    public KeywordDTO findKeyword(String Keyword) {
+        return KeywordMapper.INSTANCE.keywordEntityToDTO(keywordRepository.findByKeyword(Keyword));
+    }
+
+//    public void deleteKeyword(Long keywordIdx) {
+//        keywordRepository.deleteById(keywordIdx);
+//    }
 
     @SneakyThrows
     public void keywordCollectionFirst(KeywordDTO keyword) {

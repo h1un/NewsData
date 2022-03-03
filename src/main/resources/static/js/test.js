@@ -1,10 +1,10 @@
+let page = 0;
+
 $(document).ready(function () {
 
-    let page = 0;
 
     getNewsPage(page);
 
-    test();
     $("#keyword").keydown(function (key) {
         if (key.keyCode == 13) {
             console.log($("#keyword").val());
@@ -98,7 +98,9 @@ function inputKeyword() {
 
         success: function (json) {
 
-            alert("키워드 등록!")
+            alert("키워드 등록!");
+
+            getNewsPage(page);
         },
         error: function (request, status, error) {
             console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

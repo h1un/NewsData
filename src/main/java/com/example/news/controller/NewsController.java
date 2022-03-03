@@ -38,7 +38,7 @@ public class NewsController {
     @PostMapping("/keyword")
     public void inputKeyword(@RequestParam String keyword) {
 
-        keywordService.insertKeyword(keyword);
+        keywordService.insertKeywordFirst(keyword);
 
     }
 

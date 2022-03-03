@@ -29,6 +29,5 @@ public class UserServiceTest {
         userService.insertUser(user);
         Assert.assertNotNull(userRepository.findByUserId("2").get());
 
-
     }
 }

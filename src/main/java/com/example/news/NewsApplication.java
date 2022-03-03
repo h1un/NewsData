@@ -21,8 +21,8 @@ public class NewsApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     void 키워드() {
-        keywordService.insertKeyword("선거");
-        keywordService.insertKeyword("코로나");
+        keywordService.insertKeywordFirst("선거");
+        keywordService.insertKeywordFirst("코로나");
     }
 
 }
