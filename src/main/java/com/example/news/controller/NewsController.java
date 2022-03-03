@@ -1,5 +1,6 @@
 package com.example.news.controller;
 
+import com.example.news.dto.KeywordDTO;
 import com.example.news.dto.NewsDTO;
 import com.example.news.service.KeywordService;
 import com.example.news.service.NewsService;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,6 +34,21 @@ public class NewsController {
     public Page<NewsDTO> findNewsPage(@PageableDefault(size = 50, sort = "pubDate", direction = Sort.Direction.DESC) Pageable page) {
 
         return newsService.findNewsPage(page);
+    }
+
+    @GetMapping("/newsList/{keyword}")
+    public Page<NewsDTO> findNewsPageByKeyword(@PageableDefault(size = 50, sort = "pubDate", direction = Sort.Direction.DESC) Pageable page,@PathVariable String keyword) {
+
+        return newsService.findNewsPageByKeyword(page,keyword);
+    }
+
+
+    @ResponseBody
+    @GetMapping("/keyword")
+    public List<KeywordDTO> findAllKeyword() {
+
+        return keywordService.findKeywords();
+
     }
 
     @ResponseBody

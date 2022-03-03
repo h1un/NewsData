@@ -15,7 +15,7 @@
     <meta name="theme-color" content="#7952b3">
 
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="js/test.js"></script>
+    <script src="js/index.js"></script>
 
 </head>
 <body>
@@ -36,14 +36,11 @@
     <hr>
 
     <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex">
-
-            <button class="btn btn-outline-secondary" href="#">All</button>
+        <nav class="nav d-flex" id="keywordBar" >
+            <button class="btn btn-outline-secondary" >All</button>
             <th:block th:each="keyword : ${keywords}">
-                <button th:text="${keyword.keyword}" class="btn btn-outline-secondary" href="#"></button>
+                <button th:text="${keyword.keyword}" class="btn btn-outline-secondary" ></button>
             </th:block>
-
-
         </nav>
     </div>
 </div>

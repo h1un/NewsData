@@ -18,4 +18,6 @@ public interface NewsMapper {
     default Page<NewsDTO> newsEntityPageToNewsDTOPage(Page<NewsEntity> newsEntityList) {
         return newsEntityList.map(this::newsEntityToDTO);
     }
+
+
 }
