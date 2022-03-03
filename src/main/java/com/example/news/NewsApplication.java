@@ -1,6 +1,6 @@
 package com.example.news;
 
-import com.example.news.service.NewsService;
+import com.example.news.service.KeywordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +12,7 @@ import org.springframework.context.event.EventListener;
 @SpringBootApplication
 public class NewsApplication {
 
-    public final NewsService newsService;
+    public final KeywordService keywordService;
 
     public static void main(String[] args) {
         SpringApplication.run(NewsApplication.class, args);
@@ -21,8 +21,8 @@ public class NewsApplication {
 
     @EventListener(ApplicationReadyEvent.class)
     void 키워드() {
-        newsService.키워드등록("선거");
-        newsService.키워드등록("코로나");
+        keywordService.insertKeyword("선거");
+        keywordService.insertKeyword("코로나");
     }
 
 }

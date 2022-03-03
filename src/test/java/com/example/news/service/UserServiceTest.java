@@ -1,7 +1,6 @@
 package com.example.news.service;
 
 import com.example.news.dto.UserDTO;
-import com.example.news.entity.UserEntity;
 import com.example.news.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
