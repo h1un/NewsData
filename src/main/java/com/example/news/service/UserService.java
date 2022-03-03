@@ -3,6 +3,7 @@ package com.example.news.service;
 import com.example.news.dto.UserDTO;
 import com.example.news.entity.UserEntity;
 import com.example.news.mapper.UserMapper;
+import com.example.news.repository.NewsRepository;
 import com.example.news.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +21,13 @@ public class UserService {
         user.setUserPassword(encodePassword);
         UserEntity userEntity = UserMapper.INSTANCE.userDTOToEntity(user);
         userRepository.save(userEntity);
+    }
+
+    public boolean checkKeyword(String userId) {
+        if(userRepository.findByUserId(userId)==null){
+            return false;
+        }
+        return true;
     }
 
 }

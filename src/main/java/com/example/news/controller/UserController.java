@@ -3,10 +3,7 @@ package com.example.news.controller;
 import com.example.news.dto.UserDTO;
 import com.example.news.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RequiredArgsConstructor
@@ -35,6 +32,15 @@ public class UserController {
         userService.insertUser(user);
         modelAndView.setViewName("redirect:login");
         return modelAndView;
+    }
+
+    @ResponseBody
+    @GetMapping("/signup/{userId}")
+    public boolean findUserId(@PathVariable String userId) {
+
+        System.out.println(userId);
+        return userService.checkKeyword(userId);
+
     }
 
 }
