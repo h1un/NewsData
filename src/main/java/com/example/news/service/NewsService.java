@@ -1,7 +1,9 @@
 package com.example.news.service;
 
-import com.example.news.entity.Keyword;
-import com.example.news.entity.News;
+import com.example.news.dto.KeywordDTO;
+import com.example.news.dto.NewsDTO;
+import com.example.news.mapper.KeywordMapper;
+import com.example.news.mapper.NewsMapper;
 import com.example.news.repository.KeywordRepository;
 import com.example.news.repository.NewsRepository;
 import com.example.news.site.naver.ApiExamSearch;
@@ -27,23 +29,28 @@ public class NewsService {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public List<Keyword> findKeywords() {
-        return keywordRepository.findAll();
+    public List<KeywordDTO> findKeywords() {
+        return KeywordMapper.INSTANCE.keywordDTOListToEntityList(keywordRepository.findAll());
     }
 
-    public Page<News> findNewsPaging(Pageable page) {
-        return newsRepository.findAll(page);
+    public Page<NewsDTO> findNewsPaging(Pageable page) {
+        return NewsMapper.INSTANCE.newsEntityPageToNewsDTOPage(newsRepository.findAll(page));
     }
 
     public void 키워드등록(String keyword) {
 
-        Keyword keyword1 = keywordRepository.save(Keyword.builder().keyword(keyword).build());
+        KeywordDTO keyword1 = KeywordMapper.INSTANCE.keywordEntityToDTO(
+                keywordRepository.save(
+                        KeywordMapper.INSTANCE.keywordDTOToEntity(KeywordDTO.builder().keyword(keyword).build()
+                        )
+                ));
+
         첫키워드수집(keyword1); // 최초 수집
 
     }
 
     @SneakyThrows
-    public void 첫키워드수집(Keyword keyword) {
+    public void 첫키워드수집(KeywordDTO keyword) {
         //네이버
         String json = apiExamSearch.search(keyword.getKeyword());
         JsonNode jsonNode = objectMapper.readTree(json);
@@ -52,19 +59,19 @@ public class NewsService {
 
             LocalDateTime dateTime = LocalDateTime.parse(items.path("pubDate").asText(), DateTimeFormatter.RFC_1123_DATE_TIME);
 
-            News news = News.builder()
+            NewsDTO newsDTO = NewsDTO.builder()
                     .keyword(keyword)
                     .link(items.path("link").asText())
                     .title(items.path("title").asText())
                     .pubDate(dateTime)
                     .description(items.path("description").asText())
                     .build();
-            newsRepository.save(news);
+            newsRepository.save(NewsMapper.INSTANCE.newsDTOtoEntity(newsDTO));
         }
     }
 
     @SneakyThrows
-    public void 키워드수집(Keyword keyword) {
+    public void 키워드수집(KeywordDTO keyword) {
         //네이버
         LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
 
@@ -84,14 +91,14 @@ public class NewsService {
                     break Loop1;
                 }
 
-                News news = News.builder()
+                NewsDTO newsDTO = NewsDTO.builder()
                         .keyword(keyword)
                         .link(items.path("link").asText())
                         .title(items.path("title").asText())
                         .pubDate(dateTime)
                         .description(items.path("description").asText())
                         .build();
-                newsRepository.save(news);
+                newsRepository.save(NewsMapper.INSTANCE.newsDTOtoEntity(newsDTO));
             }
 
             start += 100;
@@ -99,7 +106,7 @@ public class NewsService {
     }
 
     public void 스케줄러키워드수집() {
-        keywordRepository.findAll().stream().forEach(keyword -> {
+        KeywordMapper.INSTANCE.keywordDTOListToEntityList(keywordRepository.findAll()).stream().forEach(keyword -> {
             키워드수집(keyword);
         });
     }

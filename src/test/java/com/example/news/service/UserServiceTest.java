@@ -1,6 +1,7 @@
 package com.example.news.service;
 
-import com.example.news.entity.User;
+import com.example.news.dto.UserDTO;
+import com.example.news.entity.UserEntity;
 import com.example.news.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class UserServiceTest {
     @Test
     public void insertUser() {
 
-        User user = User.builder()
+        UserDTO user = UserDTO.builder()
                 .userId("2")
                 .userPassword("1")
                 .build();

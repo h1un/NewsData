@@ -1,6 +1,7 @@
 package com.example.news.controller;
 
-import com.example.news.entity.User;
+import com.example.news.dto.UserDTO;
+import com.example.news.entity.UserEntity;
 import com.example.news.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/signup")
-    public ModelAndView singUp(User user) {
+    public ModelAndView singUp(UserDTO user) {
         userService.insertUser(user);
         modelAndView.setViewName("redirect:login");
         return modelAndView;

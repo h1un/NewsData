@@ -1,6 +1,7 @@
 package com.example.news.controller;
 
-import com.example.news.entity.News;
+import com.example.news.dto.NewsDTO;
+import com.example.news.entity.NewsEntity;
 import com.example.news.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,7 +30,7 @@ public class NewsController {
     }
 
     @GetMapping("/newsList")
-    public Page<News> newsPage(@PageableDefault(size = 50, sort = "pubDate", direction = Sort.Direction.DESC) Pageable page) {
+    public Page<NewsDTO> newsPage(@PageableDefault(size = 50, sort = "pubDate", direction = Sort.Direction.DESC) Pageable page) {
 
         return newsService.findNewsPaging(page);
     }

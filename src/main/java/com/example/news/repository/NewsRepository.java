@@ -1,12 +1,12 @@
 package com.example.news.repository;
 
-import com.example.news.entity.News;
+import com.example.news.entity.NewsEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface NewsRepository extends JpaRepository<News, Long> {
+public interface NewsRepository extends JpaRepository<NewsEntity, Long> {
 
     @Override
-    Page<News> findAll(Pageable pageable);
+    Page<NewsEntity> findAll(Pageable pageable);
 }

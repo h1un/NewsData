@@ -1,6 +1,6 @@
 package com.example.news.config.auth;
 
-import com.example.news.entity.User;
+import com.example.news.entity.UserEntity;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,10 +12,10 @@ import java.util.Collection;
 @Getter
 public class PrincipalDetail implements UserDetails {
 
-    private User user; //객체를 품고있는거  : 콤포지션
+    private UserEntity user; //객체를 품고있는거  : 콤포지션
 
     //이걸 꼭 만들어줘야 우리의 정보를 세션에 담을 수 있다!!
-    public PrincipalDetail(User user) {
+    public PrincipalDetail(UserEntity user) {
         this.user = user;
     }
 
