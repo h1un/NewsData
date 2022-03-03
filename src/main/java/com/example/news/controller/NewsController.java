@@ -1,7 +1,6 @@
 package com.example.news.controller;
 
 import com.example.news.dto.NewsDTO;
-import com.example.news.entity.NewsEntity;
 import com.example.news.service.NewsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

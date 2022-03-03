@@ -1,7 +1,6 @@
 package com.example.news.controller;
 
 import com.example.news.dto.UserDTO;
-import com.example.news.entity.UserEntity;
 import com.example.news.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

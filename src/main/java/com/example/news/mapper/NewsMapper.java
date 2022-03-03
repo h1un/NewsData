@@ -6,8 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
-
 @Mapper
 public interface NewsMapper {
 
@@ -17,7 +15,7 @@ public interface NewsMapper {
 
     NewsDTO newsEntityToDTO(NewsEntity newsEntity);
 
-    default Page<NewsDTO> newsEntityPageToNewsDTOPage(Page<NewsEntity> newsEntityList){
-     return newsEntityList.map(this::newsEntityToDTO);
+    default Page<NewsDTO> newsEntityPageToNewsDTOPage(Page<NewsEntity> newsEntityList) {
+        return newsEntityList.map(this::newsEntityToDTO);
     }
 }
