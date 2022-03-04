@@ -16,5 +16,6 @@ public class UserDTO {
     private Long userIdx;
     private String userId;
     private String userPassword;
+    private String userName;
     private LocalDateTime createDate;
 }

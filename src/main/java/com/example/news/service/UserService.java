@@ -102,15 +102,15 @@ public class UserService {
 
         String userInfo = getUserInfo(getAccessToken(code));
 
-
+        System.out.println(userInfo);
         JsonNode jsonNode = mapper.readTree(userInfo);
 
-        String username= "kakao_"+jsonNode.get("id").asText();
+        String username= "kakao_"+jsonNode.path("id").asText();
 
         Optional<UserEntity> userEntity = userRepository.findByUserId(username);
 
         if (userEntity.isEmpty()) {
-            insertUser(UserDTO.builder().userId(username).userPassword(username).build());
+            insertUser(UserDTO.builder().userId(username).userPassword(username).userName(jsonNode.path("properties").path("nickname").asText()).build());
         }
 
         Authentication kakaoUsernamePassword =

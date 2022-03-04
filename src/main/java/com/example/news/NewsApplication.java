@@ -20,7 +20,7 @@ public class NewsApplication {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    void 키워드() {
+    void keywordCollection() {
         keywordService.insertKeywordFirst("선거");
         keywordService.insertKeywordFirst("코로나");
     }

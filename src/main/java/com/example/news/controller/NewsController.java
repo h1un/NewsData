@@ -1,5 +1,6 @@
 package com.example.news.controller;
 
+import com.example.news.config.auth.PrincipalDetail;
 import com.example.news.dto.KeywordDTO;
 import com.example.news.dto.NewsDTO;
 import com.example.news.service.KeywordService;
@@ -9,8 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,11 +26,12 @@ public class NewsController {
 
     ModelAndView modelAndView = new ModelAndView();
 
-    @GetMapping({"/news","/"})
-    public ModelAndView news() {
+    @GetMapping({"/news", "/"})
+    public ModelAndView news(@AuthenticationPrincipal PrincipalDetail principal) {
 
         modelAndView.addObject("keywords", keywordService.findKeywords());
         modelAndView.setViewName("index");
+        modelAndView.addObject("userName", principal.getUser().getUserName());
         return modelAndView;
     }
 
@@ -37,9 +42,9 @@ public class NewsController {
     }
 
     @GetMapping("/newsList/{keyword}")
-    public Page<NewsDTO> findNewsPageByKeyword(@PageableDefault(size = 50, sort = "pubDate", direction = Sort.Direction.DESC) Pageable page,@PathVariable String keyword) {
+    public Page<NewsDTO> findNewsPageByKeyword(@PageableDefault(size = 50, sort = "pubDate", direction = Sort.Direction.DESC) Pageable page, @PathVariable String keyword) {
 
-        return newsService.findNewsPageByKeyword(page,keyword);
+        return newsService.findNewsPageByKeyword(page, keyword);
     }
 
 

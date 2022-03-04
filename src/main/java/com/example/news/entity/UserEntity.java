@@ -24,6 +24,7 @@ public class UserEntity {
     private Long userIdx;
     private String userId;
     private String userPassword;
+    private String userName;
     @CreationTimestamp
     private LocalDateTime createDate;
 }
