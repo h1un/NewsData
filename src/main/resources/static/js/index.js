@@ -7,7 +7,6 @@ $(document).ready(function () {
     getKeywords();
     $("#keyword").keydown(function (key) {
         if (key.keyCode == 13) {
-            console.log($("#keyword").val());
             inputKeyword();
         }
     });
@@ -21,6 +20,7 @@ function getKeywords() {
         success: function (keywords) {
 
             $("#keywordBar").html('');
+
             $("#keywordBar").append(' <button class="btn btn-outline-secondary" onclick="getNewsPage(0)" >All</button>');
             let barHtml = '';
             $("#keywordSide").html('');
@@ -45,7 +45,7 @@ function getKeywords() {
 }
 
 function getNewsPage(page) {
-
+    $("#newsTitle").html('News !')
     $.ajax({
         url: '/newsList?page=' + page + '&size=20',
         type: 'get',
@@ -128,7 +128,7 @@ function getNewsPage(page) {
 
 
 function getNewsPageByKeyword(page, keyword) {
-
+$("#newsTitle").html(keyword+' News !')
     $.ajax({
         url: '/newsList/' + keyword + '?page=' + page + '&size=20',
         type: 'get',
