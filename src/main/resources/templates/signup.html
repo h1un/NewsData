@@ -14,6 +14,16 @@
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
     <script src="js/signup.js"></script>
 
+    <style>
+        .alert {
+            position: relative;
+            padding: 0;
+            margin-bottom: 0;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            font-size: smaller;
+        }
+    </style>
 </head>
 <body>
 
@@ -26,7 +36,7 @@
                 <h2 class="blog-header-logo text-dark">News Data</h2>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
-                <a class="btn btn-sm btn-outline-secondary" href="#">login</a>
+                <a class="btn btn-sm btn-outline-secondary" href="/login">login</a>
             </div>
         </div>
     </header>
@@ -40,23 +50,30 @@
                 <input type="email" class="form-control" id="userId" th:name="userId" placeholder="name@example.com">
                 <label for="userId">Email address</label>
             </div>
-
+            <div id ="idMessage">
+                <div class="alert alert-light" role="alert"> &nbsp
+                </div>
+            </div>
             <div class="form-floating">
                 <input type="password" class="form-control" id="userPassword" th:name="userPassword"
                        placeholder="Password">
                 <label for="userPassword">Password</label>
             </div>
+            <div id ="pwMessage">
+                <div class="alert alert-light" role="alert">&nbsp
+                </div>
+            </div>
             <div class="form-floating">
                 <input type="password" class="form-control" id="passwordCk" placeholder="Password">
                 <label for="passwordCk">Password 확인</label>
             </div>
+            <div>
+                <div class="alert alert-light" role="alert">&nbsp
+                </div>
 
-            <div class="checkbox mb-3">
-                <label>
-
-                </label>
             </div>
-            <button class="w-100 btn btn-lg btn-outline-secondary" type="submit" id = "submit">Sign up</button>
+
+            <button class="w-100 btn btn-lg btn-outline-secondary" type="submit" id="submit">Sign up</button>
         </form>
     </div>
 

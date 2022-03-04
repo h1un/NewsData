@@ -11,7 +11,16 @@
 
     <title>New Data</title>
     <meta name="theme-color" content="#7952b3">
-
+    <style>
+        .alert {
+            position: relative;
+            padding: 0;
+            margin-bottom: 0;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            font-size: smaller;
+        }
+    </style>
 </head>
 <body>
 
@@ -38,7 +47,8 @@
                 <input type="text" class="form-control" name="username" placeholder="name@example.com">
                 <label for="username">Email address</label>
             </div>
-
+            <div class="alert alert-light" role="alert"> &nbsp
+            </div>
             <div class="form-floating">
                 <input type="password" class="form-control" name="password" placeholder="Password">
                 <label for="userPassword">Password</label>

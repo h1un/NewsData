@@ -18,9 +18,12 @@ function keyupId() {
 
                 if (!userIdCheck) {
                     idCk = false;
+
+                    $("#idMessage").html('<div class="alert alert-light" role="alert"> &nbsp </div>')
+
                 } else {
                     idCk = true;
-                    console.log("이미 등록된 아이디 입니다.")
+                    $("#idMessage").html('<div class="alert alert-success" role="alert"> 이미 등록된 아이디 입니다. </div>')
 
                 }
 
@@ -36,10 +39,10 @@ function keyupPw() {
         if($("#passwordCk").val()!==''){
 
             if($("#passwordCk").val()==($("#userPassword").val())){
-                console.log("비밀번호가 일치합니다.");
+                $("#pwMessage").html('<div class="alert alert-primary" role="alert"> 비밀번호가 일치합니다 </div>')
                 pwCk = false;
             }else{
-                console.log("비밀번호가 다릅니다.")
+                $("#pwMessage").html('<div class="alert alert-success" role="alert"> 비밀번호가 다릅니다. </div>')
                 pwCk=true;
             }
         }
@@ -50,13 +53,13 @@ function keyupPw() {
 function keyupPwCk() {
     $("#passwordCk").keyup(function () {
 
-            if($("#passwordCk").val()==($("#userPassword").val())){
-                console.log("비밀번호가 일치합니다.");
-                pwCk = false;
-            }else{
-                console.log("비밀번호가 다릅니다.")
-                pwCk=true;
-            }
+        if($("#passwordCk").val()==($("#userPassword").val())){
+            $("#pwMessage").html('<div class="alert alert-primary" role="alert"> 비밀번호가 일치합니다 </div>')
+            pwCk = false;
+        }else{
+            $("#pwMessage").html('<div class="alert alert-success" role="alert"> 비밀번호가 다릅니다. </div>')
+            pwCk=true;
+        }
 
         buttonDisable();
     });
@@ -65,4 +68,5 @@ $(document).ready(function () {
     keyupId();
     keyupPw();
     keyupPwCk();
+    buttonDisable()
 });
