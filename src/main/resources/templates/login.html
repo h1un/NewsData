@@ -44,13 +44,13 @@
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
             <div class="form-floating">
-                <input type="text" class="form-control" name="username" placeholder="name@example.com">
+                <input type="text" class="form-control" name="username" id="username" placeholder="name@example.com">
                 <label for="username">Email address</label>
             </div>
             <div class="alert alert-light" role="alert"> &nbsp
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" name="password" placeholder="Password">
+                <input type="password" class="form-control" name="password" id="userPassword" placeholder="Password">
                 <label for="userPassword">Password</label>
             </div>
 
@@ -60,6 +60,7 @@
                 </label>
             </div>
             <button class="w-100 btn btn-lg btn-outline-secondary" type="submit">Sign in</button>
+            <a href="https://kauth.kakao.com/oauth/authorize?client_id=7d70450b31867bf622687771a20f2ad3&redirect_uri=http://localhost:8080/auth/kakao/login&response_type=code"><img  class="w-100" src="image/kakao_login_medium_wide.png"/></a>
         </form>
     </div>
 

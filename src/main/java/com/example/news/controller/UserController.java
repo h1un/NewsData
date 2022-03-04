@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
+
 @RequiredArgsConstructor
 @RestController
 public class UserController {
@@ -41,6 +43,16 @@ public class UserController {
         return userService.checkUserId(userId);
 
     }
+
+    @ResponseBody
+    @GetMapping("/auth/kakao/login")
+    public ModelAndView kakaoLogin(String code) {
+        userService.kakaoLogin(code);
+        modelAndView.setViewName("redirect:/");
+        return modelAndView;
+
+    }
+
 
 }
 
