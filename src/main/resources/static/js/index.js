@@ -29,10 +29,9 @@ function getKeywords() {
 
 
             $.each(keywords, function (index, keyword) {
-                console.log(keyword)
                 barHtml += '<button class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(0,\'' + keyword.keyword + '\')">' + keyword.keyword + '</button>';
-                sideHtml += '<li class="list-group-item">' + keyword.keyword+
-                    '<button class="btn btn-outline-secondary" onclick="deleteKeyword('+keyword.keywordIdx+')">x</button>' +
+                sideHtml += '<li class="list-group-item">' + keyword.keyword +
+                    '<button class="btn btn-outline-secondary" onclick="deleteKeyword(' + keyword.keywordIdx + ')">x</button>' +
                     '</li>'
 
             })
@@ -52,6 +51,8 @@ function getNewsPage(page) {
         type: 'get',
         dataType: 'json',
         success: function (json) {
+
+            console.log(json);
             $('#newsList').text("");
             $.each(json.content, function (index, news) {
 
@@ -62,23 +63,21 @@ function getNewsPage(page) {
                     + '<hr>'
                     + '</article>'
                 $('#newsList').append(html);
-                pageNext = page + 1;
 
+                pageNum = json.number;
+                pageNext = page + 1;
                 pageQuotient = parseInt(page / 10);
                 pageRemainder = page % 10;
                 pageLast = json.totalPages - 1;
-                pageLastNum = parseInt(json.totalPages / 10);
+                pageLastNum = json.totalPages==10?0:parseInt(json.totalPages / 10);
                 $('#page').html("");
 
                 if (pageQuotient == 0) {
-                    // $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(0)">first</a>');
-                    //
-                    // $('#page').append('<a class="btn btn-outline-primary"">Previous</a>');
                 } else {
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(0)">first</a>');
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPage(0)">first</a>');
 
                     pagePrevious = (pageQuotient * 10) - 10;
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pagePrevious + ')">Previous</a>');
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPage(' + pagePrevious + ')">Previous</a>');
 
                 }
 
@@ -86,31 +85,37 @@ function getNewsPage(page) {
 
                     pageNum = (pageQuotient * 10) + i;
                     pageNumNext = pageNum + 1;
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a>');
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a>');
 
                 }
-                //17
-                $('#page').append('<a class="btn btn-outline-primary" style = "color : red;" onclick=" getNewsPage(' + page + ')">' + pageNext + '</a> ');
+                $('#page').append('<a class="btn btn-outline-secondary" style = "color : red;" onclick=" getNewsPage(' + page + ')">' + pageNext + '</a> ');
 
                 for (i = 1; i < 10 - pageRemainder; i++) {
 
                     pageNum = page + i;
                     pageNumNext = pageNum + 1;
                     //18 >= 17
-                    if (pageNum > pageLast) break;
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a> ');
+                    if (pageNum > pageLast) {
+                        break;
+
+                    }
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a> ');
 
 
                 }
+
                 if (pageLastNum == pageQuotient) {
                     //$('#page').append('<li class="page-item disabled"><a class="page-link"">Next</a> ');
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageLast + ')">last</a></>');
 
+                    if(json.number!=json.totalPages-1){
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPage(' + pageLast + ')">last</a></>');
+                    }
                 } else {
-                    pageNext = (pageQuotient * 10) + 10;
 
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageNext + ')">Next</a> ');
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageLast + ')">last</a> ');
+                    pageNextNum = (pageQuotient * 10) + 10;
+
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPage(' + pageNextNum + ')">Next</a> ');
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPage(' + pageLast + ')">last</a> ');
                 }
             });
 
@@ -139,23 +144,20 @@ function getNewsPageByKeyword(page, keyword) {
                     + '<hr>'
                     + '</article>'
                 $('#newsList').append(html);
+                pageNum = json.number;
                 pageNext = page + 1;
-
                 pageQuotient = parseInt(page / 10);
                 pageRemainder = page % 10;
                 pageLast = json.totalPages - 1;
-                pageLastNum = parseInt(json.totalPages / 10);
+                pageLastNum = json.totalPages==10?0:parseInt(json.totalPages / 10);
                 $('#page').html("");
 
                 if (pageQuotient == 0) {
-                    // $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(0)">first</a>');
-                    //
-                    // $('#page').append('<a class="btn btn-outline-primary"">Previous</a>');
                 } else {
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(0)">first</a>');
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(0,\'' + keyword + '\'))">first</a>');
 
                     pagePrevious = (pageQuotient * 10) - 10;
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pagePrevious + ')">Previous</a>');
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(' + pagePrevious + ',\'' + keyword + '\')">Previous</a>');
 
                 }
 
@@ -163,31 +165,37 @@ function getNewsPageByKeyword(page, keyword) {
 
                     pageNum = (pageQuotient * 10) + i;
                     pageNumNext = pageNum + 1;
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a>');
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(' + pageNum + ',\'' + keyword + '\')">' + pageNumNext + '</a>');
 
                 }
-                //17
-                $('#page').append('<a class="btn btn-outline-primary" style = "color : red;" onclick=" getNewsPage(' + page + ')">' + pageNext + '</a> ');
+                $('#page').append('<a class="btn btn-outline-secondary" style = "color : red;" onclick=" getNewsPageByKeyword(' + page + ',\'' + keyword + '\')">' + pageNext + '</a> ');
 
                 for (i = 1; i < 10 - pageRemainder; i++) {
 
                     pageNum = page + i;
                     pageNumNext = pageNum + 1;
                     //18 >= 17
-                    if (pageNum > pageLast) break;
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageNum + ')">' + pageNumNext + '</a> ');
+                    if (pageNum > pageLast) {
+                        break;
+
+                    }
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(' + pageNum + ',\'' + keyword + '\')">' + pageNumNext + '</a> ');
 
 
                 }
+
                 if (pageLastNum == pageQuotient) {
                     //$('#page').append('<li class="page-item disabled"><a class="page-link"">Next</a> ');
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageLast + ')">last</a></>');
 
+                    if(json.number!=json.totalPages-1){
+                        $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(' + pageLast + ',\'' + keyword + '\')">last</a></>');
+                    }
                 } else {
-                    pageNext = (pageQuotient * 10) + 10;
 
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageNext + ')">Next</a> ');
-                    $('#page').append('<a class="btn btn-outline-primary" onclick="getNewsPage(' + pageLast + ')">last</a> ');
+                    pageNextNum = (pageQuotient * 10) + 10;
+
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(' + pageNextNum + ',\'' + keyword + '\')">Next</a> ');
+                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(' + pageLast + ',\'' + keyword + '\')">last</a> ');
                 }
             });
 
@@ -218,9 +226,9 @@ function inputKeyword() {
 
                         alert("키워드 등록!");
 
-                        $("#keywordBar").append( '<button class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(0,\'' + json.keyword + '\')">' + json.keyword + '</button>');
-                        $("#keywordSide").append('<li class="list-group-item">' + json.keyword+
-                            '<button class="btn btn-outline-secondary" onclick="deleteKeyword('+json.keywordIdx+')">x</button>' +
+                        $("#keywordBar").append('<button class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(0,\'' + json.keyword + '\')">' + json.keyword + '</button>');
+                        $("#keywordSide").append('<li class="list-group-item">' + json.keyword +
+                            '<button class="btn btn-outline-secondary" onclick="deleteKeyword(' + json.keywordIdx + ')">x</button>' +
                             '</li>');
 
                         getNewsPage(page);
@@ -251,21 +259,21 @@ function deleteKeyword(keywordIdx) {
 
     let deleteCk = confirm("삭제하시겠습니까?")
 
-    if(deleteCk){
+    if (deleteCk) {
 
-    $.ajax({
-        url: '/keyword/' + keywordIdx,
-        type: 'delete',
-        success: function () {
-            alert("삭제되었습니다!")
-            location.reload();
+        $.ajax({
+            url: '/keyword/' + keywordIdx,
+            type: 'delete',
+            success: function () {
+                alert("삭제되었습니다!")
+                location.reload();
 
-        },
-        error: function (request, status, error) {
-            console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-        }
+            },
+            error: function (request, status, error) {
+                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
 
-    });
+        });
     }
 
 
