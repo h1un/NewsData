@@ -22,7 +22,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/h2-console/**").permitAll()
-//                .antMatchers("/news/**").authenticated()
+                .antMatchers("/news/**","/").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .headers()
@@ -34,6 +34,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/news")
                 .and()
                 .logout()
+                .logoutSuccessUrl("/login")
                 .permitAll()
                 .and()
                 .csrf().disable();

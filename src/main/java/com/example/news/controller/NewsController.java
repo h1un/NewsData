@@ -22,7 +22,7 @@ public class NewsController {
 
     ModelAndView modelAndView = new ModelAndView();
 
-    @GetMapping("/news")
+    @GetMapping({"/news","/"})
     public ModelAndView news() {
 
         modelAndView.addObject("keywords", keywordService.findKeywords());
