@@ -85,4 +85,4 @@ SpringBoot H2 JPA Junit4 SpringSecurity OAuth2
 - 키워드 처음 등록시 몇개를 수집해야하는가 ?
     - 전부 ?
     - 100개만 ?
-- [ ] 스레드
+- [ ] 키워드 수집하는걸 스레드로 진행 
