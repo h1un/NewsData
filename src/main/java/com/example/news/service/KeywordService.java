@@ -12,6 +12,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,11 +23,13 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class KeywordService {
 
     public final KeywordRepository keywordRepository;
     public final NewsRepository newsRepository;
     public final ApiExamSearch apiExamSearch;
+    Logger logger = LoggerFactory.getLogger(KeywordService.class);
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -34,7 +39,7 @@ public class KeywordService {
 
     public KeywordDTO insertKeywordFirst(String keyword) {
         KeywordDTO keywordDTO = KeywordMapper.INSTANCE.keywordEntityToDTO(insertKeyword(keyword));
-        System.out.println("최초수집");
+        logger.info("최초 수집");
         keywordCollectionFirst(keywordDTO); // 최초 수집
         return keywordDTO;
     }
@@ -63,8 +68,7 @@ public class KeywordService {
         //네이버
         String json = apiExamSearch.search(keyword.getKeyword());
         JsonNode jsonNode = objectMapper.readTree(json);
-        System.out.println(jsonNode);
-        System.out.println(jsonNode.path("errormessage").isMissingNode());
+
         if (jsonNode.path("errorMessage").isMissingNode()) {
 
             for (JsonNode items : jsonNode.path("items")) {
@@ -82,8 +86,7 @@ public class KeywordService {
             }
 
         } else {
-
-            System.out.println("기다리는중");
+            logger.error("Json-error 메세지/기다리는 중");
             Thread.sleep(10000);
 
             keywordCollectionFirst(keyword);
@@ -119,8 +122,13 @@ public class KeywordService {
 
             start += 100;
 
+        }else {
+            logger.error("Json-error 메세지 / 기다리는 중");
+
             Thread.sleep(10000);
+
         }
+
 
         keywordCollection(keyword, start);
 
