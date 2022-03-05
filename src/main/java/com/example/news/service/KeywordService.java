@@ -64,8 +64,8 @@ public class KeywordService {
         String json = apiExamSearch.search(keyword.getKeyword());
         JsonNode jsonNode = objectMapper.readTree(json);
         System.out.println(jsonNode);
-
-        if (jsonNode.path("errormessage").isMissingNode()) {
+        System.out.println(jsonNode.path("errormessage").isMissingNode());
+        if (jsonNode.path("errorMessage").isMissingNode()) {
 
             for (JsonNode items : jsonNode.path("items")) {
 
@@ -83,6 +83,7 @@ public class KeywordService {
 
         } else {
 
+            System.out.println("기다리는중");
             Thread.sleep(10000);
 
             keywordCollectionFirst(keyword);
@@ -96,28 +97,30 @@ public class KeywordService {
 
         String json = apiExamSearch.search(keyword.getKeyword(), start);
         JsonNode jsonNode = objectMapper.readTree(json);
+        if (jsonNode.path("errorMessage").isMissingNode()) {
 
-        for (JsonNode items : jsonNode.path("items")) {
+            for (JsonNode items : jsonNode.path("items")) {
 
-            LocalDateTime dateTime = LocalDateTime.parse(items.path("pubDate").asText(), DateTimeFormatter.RFC_1123_DATE_TIME);
+                LocalDateTime dateTime = LocalDateTime.parse(items.path("pubDate").asText(), DateTimeFormatter.RFC_1123_DATE_TIME);
 
-            if (dateTime.compareTo(now) < 0) {
-                break;
+                if (dateTime.compareTo(now) < 0) {
+                    break;
+                }
+
+                NewsDTO newsDTO = NewsDTO.builder()
+                        .keyword(keyword)
+                        .link(items.path("link").asText())
+                        .title(items.path("title").asText())
+                        .pubDate(dateTime)
+                        .description(items.path("description").asText())
+                        .build();
+                newsRepository.save(NewsMapper.INSTANCE.newsDTOtoEntity(newsDTO));
             }
 
-            NewsDTO newsDTO = NewsDTO.builder()
-                    .keyword(keyword)
-                    .link(items.path("link").asText())
-                    .title(items.path("title").asText())
-                    .pubDate(dateTime)
-                    .description(items.path("description").asText())
-                    .build();
-            newsRepository.save(NewsMapper.INSTANCE.newsDTOtoEntity(newsDTO));
+            start += 100;
+
+            Thread.sleep(10000);
         }
-
-        start += 100;
-
-        Thread.sleep(10000);
 
         keywordCollection(keyword, start);
 
