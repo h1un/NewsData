@@ -117,6 +117,8 @@ public class KeywordService {
 
         start += 100;
 
+        Thread.sleep(10000);
+
         keywordCollection(keyword, start);
 
     }
