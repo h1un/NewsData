@@ -2,7 +2,7 @@ package com.example.news.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -10,11 +10,11 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class NewsEntity {
 
     @Id

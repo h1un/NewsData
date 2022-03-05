@@ -2,15 +2,15 @@ package com.example.news.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Getter
 @Entity
 @Builder
 @NoArgsConstructor
-@Data
 @AllArgsConstructor
 public class KeywordEntity {
     @Id
