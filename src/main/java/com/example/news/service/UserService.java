@@ -56,7 +56,7 @@ public class UserService {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
         params.add("client_id", "7d70450b31867bf622687771a20f2ad3");
-        params.add("redirect_uri", "http://13.125.55.44:8080/auth/kakao/login");
+        params.add("redirect_uri", "http://localhost:8080/auth/kakao/login");
         params.add("code", code);
 
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequset = new HttpEntity<>(params, httpHeaders);
