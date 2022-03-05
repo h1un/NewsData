@@ -139,7 +139,7 @@ $("#newsTitle").html(keyword+' News !')
 
                 let html = '<article class="blog-post">'
                     + '<h4 class="blog-post-title" > <a href="' + news.link + '" style="color:grey">' + news.title + '</a></h4>'
-                    + '<p class="blog-post-meta" >' + news.pubDate + '</p>'
+                    + '<p class="blog-post-meta" >' + news.pubDate.replace('T',' ') + '</p>'
                     + '<p>' + news.description + '</p>'
                     + '<hr>'
                     + '</article>'
