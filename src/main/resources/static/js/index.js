@@ -58,7 +58,7 @@ function getNewsPage(page) {
 
                 let html = '<article class="blog-post">'
                     + '<h4 class="blog-post-title" > <a href="' + news.link + '" style="color:grey">' + news.title + '</a></h4>'
-                    + '<p class="blog-post-meta" >' + news.pubDate.replace('T',' ') + '</p>'
+                    + '<p class="blog-post-meta" >' + news.pubDate.replace('T', ' ') + '</p>'
                     + '<p>' + news.description + '</p>'
                     + '<hr>'
                     + '</article>'
@@ -69,7 +69,7 @@ function getNewsPage(page) {
                 pageQuotient = parseInt(page / 10);
                 pageRemainder = page % 10;
                 pageLast = json.totalPages - 1;
-                pageLastNum = json.totalPages==10?0:parseInt(json.totalPages / 10);
+                pageLastNum = json.totalPages == 10 ? 0 : parseInt(json.totalPages / 10);
                 $('#page').html("");
 
                 if (pageQuotient == 0) {
@@ -107,8 +107,8 @@ function getNewsPage(page) {
                 if (pageLastNum == pageQuotient) {
                     //$('#page').append('<li class="page-item disabled"><a class="page-link"">Next</a> ');
 
-                    if(json.number!=json.totalPages-1){
-                    $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPage(' + pageLast + ')">last</a></>');
+                    if (json.number != json.totalPages - 1) {
+                        $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPage(' + pageLast + ')">last</a></>');
                     }
                 } else {
 
@@ -128,7 +128,7 @@ function getNewsPage(page) {
 
 
 function getNewsPageByKeyword(page, keyword) {
-$("#newsTitle").html(keyword+' News !')
+    $("#newsTitle").html(keyword + ' News !')
     $.ajax({
         url: '/newsList/' + keyword + '?page=' + page + '&size=20',
         type: 'get',
@@ -139,7 +139,7 @@ $("#newsTitle").html(keyword+' News !')
 
                 let html = '<article class="blog-post">'
                     + '<h4 class="blog-post-title" > <a href="' + news.link + '" style="color:grey">' + news.title + '</a></h4>'
-                    + '<p class="blog-post-meta" >' + news.pubDate.replace('T',' ') + '</p>'
+                    + '<p class="blog-post-meta" >' + news.pubDate.replace('T', ' ') + '</p>'
                     + '<p>' + news.description + '</p>'
                     + '<hr>'
                     + '</article>'
@@ -149,7 +149,7 @@ $("#newsTitle").html(keyword+' News !')
                 pageQuotient = parseInt(page / 10);
                 pageRemainder = page % 10;
                 pageLast = json.totalPages - 1;
-                pageLastNum = json.totalPages==10?0:parseInt(json.totalPages / 10);
+                pageLastNum = json.totalPages == 10 ? 0 : parseInt(json.totalPages / 10);
                 $('#page').html("");
 
                 if (pageQuotient == 0) {
@@ -187,7 +187,7 @@ $("#newsTitle").html(keyword+' News !')
                 if (pageLastNum == pageQuotient) {
                     //$('#page').append('<li class="page-item disabled"><a class="page-link"">Next</a> ');
 
-                    if(json.number!=json.totalPages-1){
+                    if (json.number != json.totalPages - 1) {
                         $('#page').append('<a class="btn btn-outline-secondary" onclick="getNewsPageByKeyword(' + pageLast + ',\'' + keyword + '\')">last</a></>');
                     }
                 } else {

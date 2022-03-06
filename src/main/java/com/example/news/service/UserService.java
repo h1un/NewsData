@@ -33,6 +33,7 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
 
     ObjectMapper mapper = new ObjectMapper();
+
     public void insertUser(UserDTO user) {
         String encodePassword = passwordEncoder.encode(user.getUserPassword());
         user.setUserPassword(encodePassword);
@@ -105,7 +106,7 @@ public class UserService {
         System.out.println(userInfo);
         JsonNode jsonNode = mapper.readTree(userInfo);
 
-        String username= "kakao_"+jsonNode.path("id").asText();
+        String username = "kakao_" + jsonNode.path("id").asText();
 
         Optional<UserEntity> userEntity = userRepository.findByUserId(username);
 
@@ -116,7 +117,7 @@ public class UserService {
         Authentication kakaoUsernamePassword =
                 new UsernamePasswordAuthenticationToken(username, username);
         Authentication authentication = authenticationManager.authenticate(kakaoUsernamePassword);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return null;
     }

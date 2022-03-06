@@ -94,49 +94,65 @@ public class KeywordService {
     }
 
     @SneakyThrows
-    public void keywordCollection(KeywordDTO keyword, int start) {
+    public void keywordCollection(KeywordDTO keyword) {
+
+        logger.info("수집 키워드  : {} ", keyword);
+        int start = 1;
+
+
         //네이버
         LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
 
-        String json = apiExamSearch.search(keyword.getKeyword(), start);
-        JsonNode jsonNode = objectMapper.readTree(json);
-        if (jsonNode.path("errorMessage").isMissingNode()) {
 
-            for (JsonNode items : jsonNode.path("items")) {
+        Loop1:
+        while (true) {
 
-                LocalDateTime dateTime = LocalDateTime.parse(items.path("pubDate").asText(), DateTimeFormatter.RFC_1123_DATE_TIME);
 
-                if (dateTime.compareTo(now) < 0) {
-                    break;
+            logger.info("start 페이지  : {} ", start);
+            String json = apiExamSearch.search(keyword.getKeyword(), start);
+//            logger.info("{}",json);
+            JsonNode jsonNode = objectMapper.readTree(json);
+            if (jsonNode.path("errorMessage").isMissingNode()) {
+
+                for (JsonNode items : jsonNode.path("items")) {
+
+                    LocalDateTime dateTime = LocalDateTime.parse(items.path("pubDate").asText(), DateTimeFormatter.RFC_1123_DATE_TIME);
+
+                    if (dateTime.compareTo(now) < 0) {
+                        logger.info("멈춰!");
+                        break Loop1;
+                    }
+
+                    NewsDTO newsDTO = NewsDTO.builder()
+                            .keyword(keyword)
+                            .link(items.path("link").asText())
+                            .title(items.path("title").asText())
+                            .pubDate(dateTime)
+                            .description(items.path("description").asText())
+                            .build();
+                    newsRepository.save(NewsMapper.INSTANCE.newsDTOtoEntity(newsDTO));
                 }
 
-                NewsDTO newsDTO = NewsDTO.builder()
-                        .keyword(keyword)
-                        .link(items.path("link").asText())
-                        .title(items.path("title").asText())
-                        .pubDate(dateTime)
-                        .description(items.path("description").asText())
-                        .build();
-                newsRepository.save(NewsMapper.INSTANCE.newsDTOtoEntity(newsDTO));
+                start += 100;
+
+                if (start > 1000) {
+                    break Loop1;
+                }
+
+            } else {
+                logger.error("Json-error 메세지 / 기다리는 중");
+                Thread.sleep(10000);
+
             }
 
-            start += 100;
-
-        }else {
-            logger.error("Json-error 메세지 / 기다리는 중");
-
-            Thread.sleep(10000);
-
         }
-
-
-        keywordCollection(keyword, start);
-
     }
 
     public void keywordCollectionAll() {
+
+        System.out.println(keywordRepository.findAll());
         KeywordMapper.INSTANCE.keywordDTOListToEntityList(keywordRepository.findAll()).stream().forEach(keyword -> {
-            keywordCollection(keyword, 1);
+            keywordCollection(keyword);
         });
     }
 

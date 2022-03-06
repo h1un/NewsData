@@ -24,7 +24,7 @@ public class KeywordServiceTest {
 
     @DisplayName("키워드 찾기")
     @Test
-    public void findKeyword(){
+    public void findKeyword() {
         Assert.assertNotNull(keywordService.findKeywordByKeyword("코로나"));
 
     }
@@ -33,7 +33,7 @@ public class KeywordServiceTest {
     @DisplayName("키워드 등록")
     @Test
     public void insertKeyword() {
-        Assert.assertEquals(keywordService.insertKeyword("자가 키트").getKeyword(),"자가 키트");
+        Assert.assertEquals(keywordService.insertKeyword("자가 키트").getKeyword(), "자가 키트");
 
     }
 
@@ -47,7 +47,7 @@ public class KeywordServiceTest {
 
     @DisplayName("키워드 삭제")
     @Test
-    public void deleteKeyword(){
+    public void deleteKeyword() {
         keywordService.deleteKeyword(
                 keywordService.findKeywordByKeyword("코로나").getKeywordIdx());
         Assert.assertNull(

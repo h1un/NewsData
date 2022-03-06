@@ -36,34 +36,36 @@ function keyupId() {
 
 function keyupPw() {
     $("#userPassword").keyup(function () {
-        if($("#passwordCk").val()!==''){
+        if ($("#passwordCk").val() !== '') {
 
-            if($("#passwordCk").val()==($("#userPassword").val())){
+            if ($("#passwordCk").val() == ($("#userPassword").val())) {
                 $("#pwMessage").html('<div class="alert alert-primary" role="alert"> 비밀번호가 일치합니다 </div>')
                 pwCk = false;
-            }else{
+            } else {
                 $("#pwMessage").html('<div class="alert alert-success" role="alert"> 비밀번호가 다릅니다. </div>')
-                pwCk=true;
+                pwCk = true;
             }
         }
 
         buttonDisable();
     });
 }
+
 function keyupPwCk() {
     $("#passwordCk").keyup(function () {
 
-        if($("#passwordCk").val()==($("#userPassword").val())){
+        if ($("#passwordCk").val() == ($("#userPassword").val())) {
             $("#pwMessage").html('<div class="alert alert-primary" role="alert"> 비밀번호가 일치합니다 </div>')
             pwCk = false;
-        }else{
+        } else {
             $("#pwMessage").html('<div class="alert alert-success" role="alert"> 비밀번호가 다릅니다. </div>')
-            pwCk=true;
+            pwCk = true;
         }
 
         buttonDisable();
     });
 }
+
 $(document).ready(function () {
     keyupId();
     keyupPw();
