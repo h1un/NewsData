@@ -94,14 +94,13 @@ public class KeywordService {
     }
 
     @SneakyThrows
-    public void keywordCollection(KeywordDTO keyword) {
+    public void keywordCollection(KeywordDTO keyword,LocalDateTime now) {
 
         logger.info("수집 키워드  : {} ", keyword);
         int start = 1;
 
 
         //네이버
-        LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
 
 
         Loop1:
@@ -150,9 +149,10 @@ public class KeywordService {
 
     public void keywordCollectionAll() {
 
-        System.out.println(keywordRepository.findAll());
+        LocalDateTime now = LocalDateTime.now().withMinute(0).withSecond(0).withNano(0);
+
         KeywordMapper.INSTANCE.keywordDTOListToEntityList(keywordRepository.findAll()).stream().forEach(keyword -> {
-            keywordCollection(keyword);
+            keywordCollection(keyword,now);
         });
     }
 

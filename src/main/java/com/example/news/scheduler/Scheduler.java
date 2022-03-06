@@ -12,9 +12,11 @@ public class Scheduler {
 
     public final KeywordService keywordService;
 
-    @Scheduled(cron = "00 07 * * * *")
+    @Scheduled(cron = "00 59 * * * *")
     public void scheduled() {
-        keywordService.keywordCollectionAll();
+
+        keywordService.keywordCollectionAll()
+        ;
     }
 
 }
