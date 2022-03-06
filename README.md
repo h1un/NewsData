@@ -85,3 +85,4 @@ SpringBoot H2 JPA Junit4 SpringSecurity OAuth2
     - 전부 ?
     - 100개만 ?
 - [ ] 키워드 수집하는걸 스레드로 진행 
+- [ ] 데이터 수집시 JPA save 사용 안하는걸로 변경 
