@@ -23,10 +23,10 @@ public class NewsController {
     public final NewsService newsService;
     public final KeywordService keywordService;
 
-    ModelAndView modelAndView = new ModelAndView();
 
     @GetMapping({"/news", "/"})
     public ModelAndView news(@AuthenticationPrincipal PrincipalDetail principal) {
+        ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.addObject("keywords", keywordService.findKeywords());
         modelAndView.setViewName("index");

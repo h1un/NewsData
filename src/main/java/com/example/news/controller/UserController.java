@@ -11,18 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class UserController {
     public final UserService userService;
-    ModelAndView modelAndView = new ModelAndView();
+
 
     @GetMapping("/login")
     public ModelAndView loginFrom() {
-
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login");
         return modelAndView;
     }
 
     @GetMapping("/signup")
     public ModelAndView singUpFrom() {
-
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("signup");
         return modelAndView;
     }
@@ -30,6 +30,7 @@ public class UserController {
     @ResponseBody
     @PostMapping("/signup")
     public ModelAndView singUp(UserDTO user) {
+        ModelAndView modelAndView = new ModelAndView();
         userService.insertUser(user);
         modelAndView.setViewName("redirect:login");
         return modelAndView;
@@ -46,6 +47,7 @@ public class UserController {
     @ResponseBody
     @GetMapping("/auth/kakao/login")
     public ModelAndView kakaoLogin(String code) {
+        ModelAndView modelAndView = new ModelAndView();
         userService.kakaoLogin(code);
         modelAndView.setViewName("redirect:/");
         return modelAndView;
